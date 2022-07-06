@@ -44,7 +44,6 @@ module.exports = {
   },
   crateStatusConclued: async ({code, status}) => {
     try {
-      console.log(status)
       const query = `
           INSERT INTO code (code, status, create_at, send_at, finish_at)
           VALUES ($1, $2, $3, $4, $5)
@@ -58,8 +57,6 @@ module.exports = {
         date(Date.now()).iso,
       ]
 
-      console.log(values)
-      console.log("3333")
       await db.query(query, values)
       return
     } catch (error) {      
@@ -68,7 +65,6 @@ module.exports = {
     }
   },
   findCode: async (code) => {
-    console.log(code)
     try {
       return await db.query(`
         SELECT * FROM code WHERE code.code = $1
