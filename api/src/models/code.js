@@ -4,7 +4,6 @@ const { date } = require('../utils')
 module.exports = {
   crateFirstStatus: async ({code, status}) => {
     try {
-      console.log(status)
       const query = `
         INSERT INTO code (code, status, create_at)
         VALUES ($1, $2, $3)
@@ -24,7 +23,6 @@ module.exports = {
   },
   crateSecondyStatus: async ({code, status}) => {
     try {
-      console.log(status)
       const query = `
         INSERT INTO code (code, status, create_at, send_at )
         VALUES ($1, $2, $3, $4)
@@ -37,8 +35,6 @@ module.exports = {
         date(Date.now()).iso,
       ]
 
-      console.log(values)
-      console.log("2222")
       await db.query(query, values)
       return
     } catch (error) {      
