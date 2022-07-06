@@ -66,3 +66,7 @@ label{
   margin: auto 1.5rem 0.5rem;
   border-radius: 100%;
 }
+
+.processDetails {
+  margin-bottom: 24px;
+}
