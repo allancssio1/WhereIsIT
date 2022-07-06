@@ -15,7 +15,7 @@ const generatorStatus = () => {
   for(let i=0; i<16; i++){
     status = possible[Math.floor(Math.random() * possible.length)]  
   }
-  console.log(status)
+
   return status
 }
 
@@ -28,7 +28,7 @@ const date = timestemp => {
     day,
     month,
     year,
-    iso: `${year}-${month}-${day}`
+    iso: `${day}-${month}-${year}`
   }
 }
 

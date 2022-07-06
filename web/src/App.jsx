@@ -10,7 +10,7 @@ function App() {
       <Router>
         <Routes>
           <Route exact path='/' element={<Search />} />
-          <Route exact path='/found' element={<Response />} />
+          <Route exact path='/found/:code' element={<Response />} />
         </Routes>
       </Router>
     </div>

@@ -20,8 +20,7 @@ function Search() {
     axios.post("http://localhost:3333/create")
       .then(response => {
         const {data} = response.data
-        console.log(data)
-        // setCode(data.code)
+        setCode(data.code)
       })
       .catch(error => console.log('error', error))
   }
@@ -29,12 +28,7 @@ function Search() {
   const handleSubmit = (event) => {
     event.preventDefault()
 
-    axios.post("http://localhost:3333/findCode", code)
-      .then(response => {
-        console.log('response =>', response)
-       // window.location.href = '/found'
-      })
-      .catch(error => console.log('error', error))
+    window.location.href = `/found/${code}`
   }
 
   return (

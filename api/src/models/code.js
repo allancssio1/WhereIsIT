@@ -1,88 +1,85 @@
 const db = require('../config/db')
+const { date } = require('../utils')
 
 module.exports = {
-  crateFirstStatus: ({code, status}) => {
-    try{
-      db.query(`
-        INSERT INTO whereisit (code, create_at, status)
+  crateFirstStatus: async ({code, status}) => {
+    try {
+      console.log(status)
+      const query = `
+        INSERT INTO code (code, status, create_at)
         VALUES ($1, $2, $3)
-      `)
+        RETURNING id
+      `
       const values = [
         code,
+        status,
         date(Date.now()).iso,
-        status
       ]
-
-      db.query(query, values)
-
-      return {
-        success: true,
-        code: 200,
-        message: 'Success create code.',
-      }
-    } catch(error) {
-      return {
-        success: false,
-        code: 400,
-        message: 'Error in creation code on Database',
-      }
+      await db.query(query, values)
+      return
+    } catch (error) {      
+      console.error("errer 2 ->", error)
+      return
     }
   },
-  crateSecondyStatus: ({code, status}) => {
-    try{
-      db.query(`
-        INSERT INTO whereisit (code, create_at, send_at, status)
+  crateSecondyStatus: async ({code, status}) => {
+    try {
+      console.log(status)
+      const query = `
+        INSERT INTO code (code, status, create_at, send_at )
         VALUES ($1, $2, $3, $4)
-      `)
+        RETURNING id
+      `
       const values = [
         code,
-        date(Date.now()-1000).iso,
+        status,
         date(Date.now()).iso,
-        status
+        date(Date.now()).iso,
       ]
 
-      db.query(query, values)
-
-      return {
-        success: true,
-        code: 200,
-        message: 'Success create code.',
-      }
-    } catch(error) {
-      return {
-        success: false,
-        code: 400,
-        message: 'Error in creation code on Database',
-      }
+      console.log(values)
+      console.log("2222")
+      await db.query(query, values)
+      return
+    } catch (error) {      
+      console.error("errer 2 ->", error)
+      return
     }
   },
-  crateStatusConclued: ({code, status}) => {
-    try{
-      db.query(`
-        INSERT INTO whereisit (code, create_at, send_at, finish_at, status)
-        VALUES ($1, $2, $3, $4, $5)
-      `)
+  crateStatusConclued: async ({code, status}) => {
+    try {
+      console.log(status)
+      const query = `
+          INSERT INTO code (code, status, create_at, send_at, finish_at)
+          VALUES ($1, $2, $3, $4, $5)
+          RETURNING id
+        `
       const values = [
         code,
-        date(Date.now()-5000).iso,
-        date(Date.now()-1000).iso,
+        status,
         date(Date.now()).iso,
-        status
+        date(Date.now()).iso,
+        date(Date.now()).iso,
       ]
 
-      db.query(query, values)
-
-      return {
-        success: true,
-        code: 200,
-        message: 'Success create code.',
-      }
-    } catch(error) {
-      return {
-        success: false,
-        code: 400,
-        message: 'Error in creation code on Database',
-      }
+      console.log(values)
+      console.log("3333")
+      await db.query(query, values)
+      return
+    } catch (error) {      
+      console.error("errer 3 ->", error)
+      return
+    }
+  },
+  findCode: async (code) => {
+    console.log(code)
+    try {
+      return await db.query(`
+        SELECT * FROM code WHERE code.code = $1
+        `, [code])
+    } catch (error) {      
+      console.error("errer 3 ->", error)
+      return
     }
   }
 }
